@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,7 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            // Cek role user
+            // Cek role admin
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.dashboard');
             }
@@ -63,13 +64,31 @@ class AuthController extends Controller
             'phone'        => $request->phone,
             'address'      => $request->address,
             'role'         => 'user',
-            'is_member'    => false,
-            'member_until' => null,
+            'is_member'    => false,     // default belum member
         ]);
 
         Auth::login($user);
 
         return redirect()->route('user.dashboard');
+    }
+
+    // ===========================
+    // AKTIVASI MEMBERSHIP SEKALI BAYAR
+    // ===========================
+    public function activateMembership()
+    {
+        $user = Auth::user();
+
+        if (! $user instanceof User) {
+            abort(403, 'Unauthorized.');
+        }
+
+        // Sekali bayar → jadi member selamanya
+        $user->is_member = true;
+        $user->save();
+
+        return redirect()->route('user.dashboard')
+            ->with('success', 'Membership berhasil diaktifkan!');
     }
 
     // ===========================
