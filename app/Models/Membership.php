@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Membership extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'price',
@@ -16,7 +18,7 @@ class Membership extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_memberships')
-            ->withPivot('start_at', 'end_at')
-            ->withTimestamps();
+                    ->withPivot('start_at', 'end_at')
+                    ->withTimestamps();
     }
 }
