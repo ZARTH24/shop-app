@@ -8,7 +8,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MembershipController;
 
-
 // ================== AUTH ==================
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -25,6 +24,12 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard user biasa
     Route::get('/user/dashboard', [DashboardController::class, 'user'])
         ->name('user.dashboard');
+
+    // Membership routes
+    Route::get('/memberships', [MembershipController::class, 'index'])
+        ->name('memberships.index');
+    Route::post('/memberships/subscribe/{id}', [MembershipController::class, 'subscribe'])
+        ->name('memberships.subscribe');
 
     // Dashboard admin
     Route::middleware(['admin'])->group(function () {

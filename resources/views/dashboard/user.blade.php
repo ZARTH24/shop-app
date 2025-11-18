@@ -4,6 +4,7 @@
 
 {{-- Navbar sudah di layouts.app --}}
 
+
 {{-- Main Hero / New Collection --}}
 <div class="py-5 text-center bg-light mb-4 rounded">
     <h1 class="display-5 fw-bold">New Collection 2025</h1>

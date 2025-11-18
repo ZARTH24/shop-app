@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KarawoHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container-fluid px-4">
             {{-- Brand + Logo --}}
-            <a class="navbar-brand d-flex align-items-center fw-bold" 
-               href="{{ Auth::check() 
+            <a class="navbar-brand d-flex align-items-center fw-bold"
+                href="{{ Auth::check() 
                        ? (Auth::user()->role === 'admin' 
                            ? route('admin.dashboard') 
                            : route('user.dashboard')) 
@@ -49,19 +51,35 @@
                 </ul>
 
                 {{-- Auth Logout --}}
-                <div class="d-flex">
+                {{-- Auth Logout --}}
+                <div class="d-flex align-items-center">
                     @auth
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                            @csrf
-                            <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
-                        </form>
+                    {{-- Membership Status --}}
+                    @php
+                    /** @var \App\Models\User $user */
+                    $user = Auth::user();
+                    @endphp
+
+                    @if($user->isActiveMember())
+                    <span class="badge bg-success me-3">Anda sudah jadi member</span>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm me-2">Login</a>
-                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
+                    <a href="{{ route('memberships.index') }}" class="btn btn-warning btn-sm me-3">
+                        Anda belum jadi member
+                    </a>
+                    @endif
+
+                    {{-- Logout --}}
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
+                    </form>
+                    @else
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm me-2">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
                     @endauth
                 </div>
-            </div>
-        </div>
+
+    
     </nav>
 
     <!-- Main Content -->
@@ -72,4 +90,5 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
