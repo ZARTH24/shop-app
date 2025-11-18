@@ -3,6 +3,15 @@
 @section('content')
 
 {{-- Navbar sudah di layouts.app --}}
+<div class="alert alert-info text-center">
+    @if($isMember)
+        🎉 Anda sudah jadi member, nikmati promo khusus!
+    @else
+        ⚠️ Anda belum jadi member.
+        <a href="{{ route('memberships.index') }}" class="btn btn-sm btn-primary">Gabung Sekarang</a>
+    @endif
+</div>
+    
 
 
 {{-- Main Hero / New Collection --}}
@@ -63,5 +72,7 @@
         </div>
     </div>
 </footer>
+
+
 
 @endsection

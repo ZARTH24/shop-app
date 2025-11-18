@@ -60,13 +60,15 @@
                     $user = Auth::user();
                     @endphp
 
-                    @if($user->isActiveMember())
-                    <span class="badge bg-success me-3">Anda sudah jadi member</span>
+                    @if($isMember)
+                    <span class="btn btn-success btn-sm me-3">Member Aktif!</span>
                     @else
                     <a href="{{ route('memberships.index') }}" class="btn btn-warning btn-sm me-3">
                         Anda belum jadi member
                     </a>
                     @endif
+
+                    
 
                     {{-- Logout --}}
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
