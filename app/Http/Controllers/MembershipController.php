@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Membership;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class MembershipController extends Controller
@@ -15,7 +17,8 @@ class MembershipController extends Controller
     }
 
     public function join($id)
-    {
+    {   
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu');

@@ -9,14 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Carbon\Carbon;
 use App\Models\Membership;
+use App\Models\Cart;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * Mass assignable attributes
-     */
     protected $fillable = [
         'name',
         'email',
@@ -28,26 +27,18 @@ class User extends Authenticatable
         'member_until',
     ];
 
-    /**
-     * Hidden attributes for serialization
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Casts
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'is_member' => 'boolean',
         'member_until' => 'datetime',
     ];
 
-    /**
-     * Relasi ke memberships
-     */
+    // RELASI MEMBERSHIP
     public function memberships()
     {
         return $this->belongsToMany(Membership::class, 'user_memberships')
@@ -55,25 +46,19 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    /**
-     * Relasi ke cart
-     */
+    // RELASI CART
     public function carts()
     {
         return $this->hasMany(Cart::class);
     }
 
-    /**
-     * Relasi ke orders
-     */
+    // RELASI ORDER
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
-    /**
-     * Ambil membership aktif
-     */
+    // MEMBERSHIP AKTIF
     public function activeMembership()
     {
         return $this->memberships()
@@ -81,44 +66,32 @@ class User extends Authenticatable
                     ->first();
     }
 
-    /**
-     * Cek apakah user saat ini member aktif
-     */
+    // CEK STATUS MEMBER
     public function isActiveMember()
     {
         return $this->activeMembership() !== null;
     }
 
-    /**
-     * Activate membership untuk user
-     */
-    /**
- * Activate membership untuk user
- */
-public function activateMembership(Membership $membership)
-{
-    $start = now();
-    $end = $start->copy()->addDays($membership->duration_days);
+    // AKTIFKAN MEMBERSHIP
+    public function activateMembership(Membership $membership)
+    {
+        $start = now();
+        $end = $start->copy()->addDays($membership->duration_days);
 
-    // Tambahkan ke pivot table
-    $this->memberships()->attach($membership->id, [
-        'start_at' => $start,
-        'end_at' => $end,
-    ]);
+        $this->memberships()->attach($membership->id, [
+            'start_at' => $start,
+            'end_at' => $end,
+        ]);
 
-    // Update kolom di tabel users
-    $this->update([
-        'is_member' => 1,
-        'member_until' => $end,
-    ]);
+        $this->update([
+            'is_member' => true,
+            'member_until' => $end,
+        ]);
 
-    return $this;
-}
+        return $this;
+    }
 
-
-    /**
-     * Extend membership aktif (opsional)
-     */
+    // PERPANJANG MEMBERSHIP
     public function extendMembership($days)
     {
         $active = $this->activeMembership();
