@@ -11,7 +11,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up(): void {
+    public function up(): void
+    {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
@@ -21,13 +22,15 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->boolean('is_member')->default(false);
+            $table->timestamp('member_since')->nullable();
             $table->timestamp('member_until')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    public function down(): void {
+    public function down(): void
+    {
         Schema::dropIfExists('users');
     }
 };
