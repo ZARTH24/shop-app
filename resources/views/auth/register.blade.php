@@ -1,13 +1,50 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
 
-@section('content')
-<div class="container" style="max-width: 500px; margin-top: 50px;">
-    <h2 class="mb-4 text-center">Register</h2>
+    <!-- Bootstrap CDN biar nggak bikin mata sakit -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .register-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+            width: 420px;
+        }
+
+        .register-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .register-card button {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-card">
+    <h2>Register</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
-            <strong>Waduh!</strong> Masih ada yang salah nih.
-            <ul>
+            <strong>Ada yang salah nih…</strong>
+            <ul class="mt-2 mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -48,8 +85,14 @@
             <textarea name="address" class="form-control">{{ old('address') }}</textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Daftar</button>
+        <button type="submit" class="btn btn-primary">Daftar</button>
 
+        <p class="text-center mt-3">
+            Sudah punya akun?
+            <a href="{{ route('login') }}">Login</a>
+        </p>
     </form>
 </div>
-@endsection
+
+</body>
+</html>

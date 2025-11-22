@@ -31,6 +31,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/dashboard', [DashboardController::class, 'admin'])
             ->name('admin.dashboard');
     });
+
+      // Halaman daftar membership
+    Route::get('/membership', [MembershipController::class, 'index'])
+        ->name('membership.index');
+
+    // Proses aktivasi (setelah pembayaran)
+    Route::post('/membership/activate', [MembershipController::class, 'activate'])
+        ->name('membership.activate');
 });
 
 

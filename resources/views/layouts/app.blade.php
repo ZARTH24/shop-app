@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KarawoHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container-fluid px-4">
             {{-- Brand + Logo --}}
-            <a class="navbar-brand d-flex align-items-center fw-bold" 
-               href="{{ Auth::check() 
+            <a class="navbar-brand d-flex align-items-center fw-bold"
+                href="{{ Auth::check() 
                        ? (Auth::user()->role === 'admin' 
                            ? route('admin.dashboard') 
                            : route('user.dashboard')) 
@@ -21,6 +23,24 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/892/892781.png" width="30" class="me-2" alt="Logo">
                 KarawoHub
             </a>
+
+            @auth
+            @if(auth()->user()->is_member)
+            <a class="nav-link" href="#">
+                <img src="{{ asset('img/crown.png') }}"
+                    style="width:35px; height:35px; object-fit:contain;"
+                    alt="Member">
+
+            </a>
+            @else
+            <a class="nav-link" href="{{ route('membership.index') }}">
+                Bukan Member
+            </a>
+            @endif
+            @endauth
+
+
+
 
             {{-- Toggler untuk mobile --}}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,13 +71,13 @@
                 {{-- Auth Logout --}}
                 <div class="d-flex">
                     @auth
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                            @csrf
-                            <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
-                        </form>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
+                    </form>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm me-2">Login</a>
-                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm me-2">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
                     @endauth
                 </div>
             </div>
@@ -72,4 +92,5 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
