@@ -78,13 +78,24 @@
             </a>
 
             <!-- Center Menu -->
-            <div class="mx-auto d-none d-lg-flex">
-                <ul class="navbar-nav gap-4 fs-6">
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Women</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Men</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Sale</a></li>
-                </ul>
+             <div class="mx-auto d-none d-lg-flex">
+            <ul class="navbar-nav gap-4 fs-6">
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="{{ route('user.dashboard') }}">Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="{{ route('products.women') }}">Women</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="{{ route('products.men') }}">Men</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="{{ route('products.sale') }}">Sale</a>
+            </li>
+        </ul>
             </div>
 
             <!-- Right Icons -->
