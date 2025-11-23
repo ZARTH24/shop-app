@@ -26,6 +26,10 @@ Route::prefix('products')->name('products.')->group(function () {
     Route::get('/sale', function () {return view('products.sale');})->name('sale');
 
 });
+Route::get('/search', function () {return view('features.search');})->name('search');
+Route::get('/wishlist', function () {return view('features.wishlist');})->name('wishlist');
+Route::get('/profile', function () {return view('features.profile');})->name('profile');
+Route::get('/cart', function () {return view('features.cart');})->name('cart');
 
 // ================== DASHBOARD ROUTES ==================
 Route::middleware(['auth'])->group(function () {

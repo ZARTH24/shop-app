@@ -100,11 +100,12 @@
 
             <!-- Right Icons -->
             <div class="d-flex align-items-center gap-3 fs-5">
-                <a href="#"><i class="bi bi-search"></i></a>
-                <a href="#"><i class="bi bi-heart"></i></a>
-                <a href="#"><i class="bi bi-person-circle"></i></a>
-                <a href="#"><i class="bi bi-bag"></i></a>
+            <a href="{{ route('search') }}"><i class="bi bi-search"></i></a>
+            <a href="{{ route('wishlist') }}"><i class="bi bi-heart"></i></a>
+            <a href="{{ route('profile') }}"><i class="bi bi-person-circle"></i></a>
+            <a href="{{ route('cart') }}"><i class="bi bi-bag"></i></a>
             </div>
+
 
             <!-- Mobile toggler -->
             <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse"
