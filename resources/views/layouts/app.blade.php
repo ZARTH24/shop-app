@@ -5,91 +5,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KarawoHub</title>
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        .navbar {
+            background: #ffffff !important;
+            border-bottom: 1px solid #eee;
+            padding: 6px 0;
+        }
+
+        .navbar-brand img {
+            width: 38px;
+            height: auto;
+        }
+
+        .navbar-brand span {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 400;
+            color: #333 !important;
+            padding: 6px 10px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #000 !important;
+        }
+
+        .navbar .bi {
+            font-size: 18px;
+            color: #333;
+            transition: 0.2s;
+        }
+
+        .navbar .bi:hover {
+            color: #000;
+        }
+
+        .navbar .d-flex.gap-3 > a {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 991px) {
+            .mx-auto {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-        <div class="container-fluid px-4">
-            {{-- Brand + Logo --}}
-            <a class="navbar-brand d-flex align-items-center fw-bold"
-                href="{{ Auth::check() 
-                       ? (Auth::user()->role === 'admin' 
-                           ? route('admin.dashboard') 
-                           : route('user.dashboard')) 
-                       : route('login') }}">
-                <img src="https://cdn-icons-png.flaticon.com/512/892/892781.png" width="30" class="me-2" alt="Logo">
-                KarawoHub
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container d-flex align-items-center">
+
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/892/892781.png" class="me-2" alt="Logo">
+                <span>KARAWO HUB</span>
             </a>
 
-            @auth
-            @if(auth()->user()->is_member)
-            <a class="nav-link" href="#">
-                <img src="{{ asset('img/crown.png') }}"
-                    style="width:35px; height:35px; object-fit:contain;"
-                    alt="Member">
+            <!-- Center Menu -->
+            <div class="mx-auto d-none d-lg-flex">
+                <ul class="navbar-nav gap-4 fs-6">
+                    <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#">Women</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#">Men</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#">Sale</a></li>
+                </ul>
+            </div>
 
-            </a>
-            @else
-            <a class="nav-link" href="{{ route('membership.index') }}">
-                Bukan Member
-            </a>
-            @endif
-            @endauth
+            <!-- Right Icons -->
+            <div class="d-flex align-items-center gap-3 fs-5">
+                <a href="#"><i class="bi bi-search"></i></a>
+                <a href="#"><i class="bi bi-heart"></i></a>
+                <a href="#"><i class="bi bi-person-circle"></i></a>
+                <a href="#"><i class="bi bi-bag"></i></a>
+            </div>
 
-
-
-
-            {{-- Toggler untuk mobile --}}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- Mobile toggler -->
+            <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            {{-- Menu --}}
-            <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ Auth::check() 
-                                ? (Auth::user()->role === 'admin' 
-                                    ? route('admin.dashboard') 
-                                    : route('user.dashboard')) 
-                                : route('login') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Woman</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Man</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sale</a>
-                    </li>
-                </ul>
-
-                {{-- Auth Logout --}}
-                <div class="d-flex">
-                    @auth
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
-                    </form>
-                    @else
-                    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm me-2">Login</a>
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
-                    @endauth
-                </div>
-            </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container-fluid px-4">
+    <!-- Content -->
+    <div class="container mt-5">
         @yield('content')
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
