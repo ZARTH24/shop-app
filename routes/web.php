@@ -17,7 +17,15 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::prefix('products')->name('products.')->group(function () {
 
+    Route::get('/women', function () {return view('products.women');})->name('women');
+
+    Route::get('/men', function () {return view('products.men'); })->name('men');
+
+    Route::get('/sale', function () {return view('products.sale');})->name('sale');
+
+});
 
 // ================== DASHBOARD ROUTES ==================
 Route::middleware(['auth'])->group(function () {
@@ -31,6 +39,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/dashboard', [DashboardController::class, 'admin'])
             ->name('admin.dashboard');
     });
+
+      // Halaman daftar membership
+    Route::get('/membership', [MembershipController::class, 'index'])
+        ->name('membership.index');
+
+    // Proses aktivasi (setelah pembayaran)
+    Route::post('/membership/activate', [MembershipController::class, 'activate'])
+        ->name('membership.activate');
 });
 
 

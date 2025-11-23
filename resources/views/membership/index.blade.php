@@ -1,18 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Membership</h1>
+<div class="container">
 
-@foreach($memberships as $membership)
-    <div class="membership-card">
-        <h3>{{ $membership->name }}</h3>
-        <p>Harga: Rp {{ number_format($membership->price, 0, ',', '.') }}</p>
-        <p>Durasi: {{ $membership->duration_days }} hari</p>
+    <h2 class="mb-4">Membership Seumur Hidup</h2>
 
-        <form action="{{ route('membership.join', $membership->id) }}" method="POST">
-            @csrf
-            <button type="submit">Join</button>
-        </form>
-    </div>
-@endforeach
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    @if(auth()->user()->is_member)
+        <div class="alert alert-success">
+            Kamu sudah member! Hidup kamu udah naik kasta.
+        </div>
+    @else
+        <div class="card">
+            <div class="card-body">
+                <p>
+                    Bayar sekali → Nikmati fitur premium selamanya.  
+                    Tanpa expired, tanpa ribet, tanpa drama.
+                </p>
+
+                <!-- Tombol menuju "bayar" -->
+                <form action="{{ route('membership.activate') }}" method="POST">
+                    @csrf
+                    <button class="btn btn-primary">
+                        Lakukan Pembayaran & Aktifkan Membership
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    @endif
+
+</div>
 @endsection

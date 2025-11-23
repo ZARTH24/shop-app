@@ -28,5 +28,18 @@ class DatabaseSeeder extends Seeder
                 'member_until' => now()->addYear(),
             ]
         );
+
+               User::firstOrCreate(
+            ['email' => 'user123@gmail.com'],
+            [
+                'name' => 'Jhon Doe',
+                'password' => Hash::make('123456'),
+                'role' => 'user', 
+                'phone' => '081234567890',
+                'address' => 'Alamat User',
+                'is_member' => false,
+                'member_until' => now()->addYear(),
+            ]
+        );
     }
 }

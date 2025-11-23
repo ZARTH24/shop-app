@@ -14,30 +14,20 @@ class MembershipController extends Controller
         return view('membership.index', compact('memberships'));
     }
 
-    public function join($id)
+     public function activate(Request $request)
     {
-        $membership = Membership::findOrFail($id);
+        $user = $request->user();
 
-        $user = auth()->user();
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu');
+        if ($user->is_member) {
+            return back()->with('error', 'Kamu udah member, jangan sok daftar ulang.');
         }
 
-        /** @var \App\Models\User $user */
+        // Anggap pembayaran udah dilakukan
+        $user->is_member = true;
+        $user->member_since = Carbon::now();
+        $user->save();
 
-        $start = Carbon::now();
-        $end = $start->copy()->addDays($membership->duration_days);
-
-        $user->memberships()->attach($membership->id, [
-            'start_at' => $start,
-            'end_at' => $end,
-        ]);
-
-        $user->update([
-            'is_member' => true,
-            'member_until' => $end,
-        ]);
-
-        return back()->with('success', 'Membership aktif');
+        return redirect()->route('membership.index')
+            ->with('success', 'Selamat, kamu resmi jadi member seumur hidup.');
     }
 }
