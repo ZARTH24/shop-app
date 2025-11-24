@@ -162,7 +162,7 @@
 
                 <!-- IMAGE -->
                 <div class="product-img">
-                    <img src="/mnt/data/dbcb0682-6a9f-420a-b16f-73136ac4ceef.png" alt="Product">
+                    <img src="{{ asset('img/crown.jpg') }}" alt="Product">
                 </div>
 
                 <!-- INFO -->
