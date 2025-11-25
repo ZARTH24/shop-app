@@ -210,7 +210,7 @@
             <div class="product-card p-2">
 
                 <div class="product-img">
-                    <img src="/mnt/data/Frame 5.png" alt="Sale Product">
+                    <img src="{{ asset('img/capture.png') }}" alt="Sale Product">
                 </div>
 
                 <div class="product-info px-2 mt-2">

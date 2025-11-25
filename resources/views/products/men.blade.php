@@ -169,7 +169,7 @@
             <div class="product-card p-2">
 
                 <div class="product-img">
-                    <img src="/mnt/data/Frame 4.png" alt="Product">
+                    <img src="{{ asset('img/4137ef63-6296-4ace-b94e-6144ff-conKVFt-20220525.png') }}">
                 </div>
 
                 <div class="product-info px-2 mt-2">

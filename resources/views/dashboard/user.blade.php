@@ -16,7 +16,7 @@
 <div class="row mb-4">
     <div class="col-md-6 mb-3">
         <div class="card">
-            <img src="https://api.sourcesplash.com/i/random?woman" class="card-img-top" alt="Woman Category">
+            <img src="{{ asset('img/capture2.png') }}" class="card-img-top" alt="Woman Category">
             <div class="card-body text-center">
                 <h5 class="card-title">Women</h5>
                 <a href="#" class="btn btn-outline-primary btn-sm">Explore</a>
@@ -25,7 +25,7 @@
     </div>
     <div class="col-md-6 mb-3">
         <div class="card">
-            <img src="https://api.sourcesplash.com/i/random?woman" class="card-img-top" alt="Man Category">
+               <img src="{{ asset('img/capture1.png') }}" class="card-img-top" alt="Man Category">
             <div class="card-body text-center">
                 <h5 class="card-title">Man</h5>
                 <a href="#" class="btn btn-outline-primary btn-sm">Explore</a>
@@ -40,7 +40,7 @@
     @for ($i = 1; $i <= 3; $i++)
         <div class="col-md-4 mb-3">
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1600180758895-15310a0d5b05?auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="Featured Product">
+            <img src="{{ asset('img/capture.png') }}" class="card-img-top" alt="Featured Product">
             <div class="card-body text-center">
                 <h5 class="card-title">Baju Karawo {{ $i }}</h5>
                 <p class="card-text">Rp {{ number_format(150000 + ($i * 50000),0,',','.') }}</p>
