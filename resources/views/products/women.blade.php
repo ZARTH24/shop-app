@@ -162,7 +162,7 @@
 
                 <!-- IMAGE -->
                 <div class="product-img">
-                    <img src="{{ asset('img/crown.jpg') }}" alt="Product">
+                    <img src="{{ asset('img/crown.png') }}">
                 </div>
 
                 <!-- INFO -->
